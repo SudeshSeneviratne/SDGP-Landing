@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>COLOSSUS.AI</title>
+
+        <link rel="shortcut icon" type="x-icon" href="pictures/SDGP_logo.png">
+        
+        <style>
+            :root {
+                --orange: #FF9F4A;
+                --pink: #FF4A8D;
+                --purple: #8B4AFF;
+                --dark: #1A1A1A;
+                --gradient: linear-gradient(135deg, var(--orange), var(--pink), var(--purple));
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+
+            body {
+                background-color: var(--dark);
+                color: white;
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            /* Header Styles */
+            header {
+            padding: 1.5rem 0;
+            position: fixed;
+            height: 90px;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(45, 43, 54, 0.5);
+            backdrop-filter: blur(10px);
+            }
+
+            .logo-text{
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                margin-left: 155px;
+            }
+
+            .logo img {
+                animation: rotateLogo 4s linear infinite;
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+            .nav-links a:hover {
+                background: var(--gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+                padding: 8rem 0;
+            }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 100vh;
+                background: radial-gradient(circle at center, 
+                    rgba(139, 74, 255, 0.15) 0%,
+                    rgba(255, 74, 141, 0.15) 30%,
+                    rgba(255, 159, 74, 0.15) 60%,
+                    transparent 70%);
+                z-index: -1;
+            }
+
+            .hero-content {
+                max-width: 800px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 4.5rem;
+                font-weight: 800;
+                line-height: 1.2;
+                margin-bottom: 1.5rem;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: fadeInUp 1s ease;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 2.5rem;
+                animation: fadeInUp 1s ease 0.2s backwards;
+            }
+
+            /* Features Section */
+            .features {
+                padding: 8rem 0;
+                background: rgba(139, 74, 255, 0.05);
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 4rem;
+            }
+
+            .feature-card {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 1rem;
+                padding: 2rem;
+                transition: transform 0.3s ease;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--pink);
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                background: var(--gradient);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Button Styles */
+            .btn {
+                display: inline-block;
+                padding: 1rem 2.5rem;
+                font-weight: 600;
+                text-decoration: none;
+                border-radius: 3rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .btn-primary {
+                background: var(--gradient);
+                color: white;
+                box-shadow: 0 4px 15px rgba(255, 74, 141, 0.3);
+            }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 74, 141, 0.4);
+            }
+
+            /* Animations */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes rotateLogo {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+}
+
+            /* Network Animation */
+            .network-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                opacity: 0.5;
+            }
+
+            /* Footer */
+            footer {
+                padding: 4rem 0;
+                background: rgba(0, 0, 0, 0.2);
+                text-align: center;
+                bottom: 0;
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .social-links a {
+                color: white;
+                text-decoration: none;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+            }
+
+            .social-links a:hover {
+                opacity: 1;
+            }
+
+            .figma-continer{
+                
+            }
+
+            .figma-ui{
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 50px;
+            }
+
+            .figma-ui-img{
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 3rem;
+                }
+
+                .nav-links {
+                    display: none;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <nav class="container">
+                <div class="logo">
+                    <img src="pictures/SDGP_logo.png" alt="Colossus.AI Logo">
+                    <span>COLOSSUS.AI</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <canvas id="network-animation" class="network-bg"></canvas>
+                <div class="container">
+                    <img src="pictures/colossusAI gradient text.png" alt="Colossus.AI Logo" style="width: 500px; margin-bottom: 20px;" class="logo-text">
+                    <div class="hero-content">
+                        <h1>The Future of AI is Here</h1>
+                        <p>Experience the power of advanced artificial intelligence with Colossus.AI. Transform your business with cutting-edge AI solutions.</p>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features" id="features">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                </svg>
+                            </div>
+                            <h3>Neural Networks</h3>
+                            <p>Advanced neural network architectures designed for complex problem-solving and pattern recognition.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                </svg>
+                            </div>
+                            <h3>Deep Learning</h3>
+                            <p>State-of-the-art deep learning models that adapt and evolve with your data.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <h3>Real-time Processing</h3>
+                            <p>Lightning-fast processing capabilities for real-time data analysis and decision making.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/1 - first page.png" alt="1" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+        
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Chat page (without pannel).png" alt="2" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Chat page.png" alt="3" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Create Domain.png" alt="4" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Create Domain to more option.png" alt="5" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Create Document.png" alt="6" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Create Document to more option.png" alt="7" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Sample Roadmap generate.png" alt="8" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Saved page 1.png" alt="9" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        <div class="figma-continer">
+            <div class="figma-ui">
+                <img src="pictures/Saved page 2.png" alt="10" class="figma-ui-img">
+                <center><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> 
+                    Officia nisi vitae rerum dolor? Vero unde ut hic quaerat voluptatum animi, <br>
+                    veritatis, voluptates laborum facilis officia consectetur fugit eum quidem error?</p>
+            </div>
+        </div>
+
+        
+
+        <footer>
+            <div class="container">
+                <div class="social-links">
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">GitHub</a>
+                </div>
+                <p>&copy; 2024 Colossus.AI. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Add header background on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.background = 'rgba(45, 43, 54, 0.95)';
+                } else {
+                    header.style.background = 'rgba(45, 43, 54, 0.9)';
+                }
+            });
+
+            // Network Animation
+            const canvas = document.getElementById('network-animation');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            function setCanvasSize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            setCanvasSize();
+            window.addEventListener('resize', setCanvasSize);
+
+            // Particles
+            const particles = [];
+            const particleCount = 50;
+            const connectionDistance = 150;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 2;
+                    this.vy = (Math.random() - 0.5) * 2;
+                    this.radius = 2;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                    if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#FF4A8D';
+                    ctx.fill();
+                }
+            }
+
+            // Create particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update and draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+
+                    // Draw connections
+                    particles.forEach(otherParticle => {
+                        const dx = particle.x - otherParticle.x;
+                        const dy = particle.y - otherParticle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(particle.x, particle.y);
+                            ctx.lineTo(otherParticle.x, otherParticle.y);
+                            ctx.strokeStyle = `rgba(255, 74, 141, ${1 - distance/connectionDistance})`;
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        </script>
+    </body>
+
+</html>
